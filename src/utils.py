@@ -9,7 +9,7 @@ def calculate_distance(user_coords: list[float], venue_coords: list[float]) -> i
     return round(((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5)
 
 
-def calculate_delivery_fee(base_price: int, a: int, b: int, distance: float) -> int:
+def calculate_delivery_fee(base_price: int, a: int, b: int, distance: int) -> int:
     """Formula for calculating the delivery fee"""
     return base_price + a + b * distance // 10
 
