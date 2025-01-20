@@ -30,7 +30,7 @@ def calculate_price(
                 base_price, dist_range["a"], dist_range["b"], dist
             )
 
-            small_order_surcharge = max(cart_value - order_minimum_no_surcharge, 0)
+            small_order_surcharge = max(order_minimum_no_surcharge - cart_value, 0)
             order_info = {
                 "total_price": cart_value + small_order_surcharge + delivery_fee,
                 "small_order_surcharge": small_order_surcharge,
