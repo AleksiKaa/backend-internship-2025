@@ -1,9 +1,11 @@
+from typing import Dict
+
 def calculate_distance(user_coords: list[float], venue_coords: list[float]) -> int:
     """Calculate the straight line distance for two pairs of points"""
     x1, y1 = user_coords
     x2, y2 = venue_coords
 
-    return int(((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5)
+    return round(((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5)
 
 
 def calculate_delivery_fee(base_price: int, a: int, b: int, distance: float) -> int:
@@ -13,7 +15,7 @@ def calculate_delivery_fee(base_price: int, a: int, b: int, distance: float) -> 
 
 def calculate_price(
     venue_information: dict, cart_value: int, user_coords: list[int]
-) -> {}:
+) -> Dict:
     """Calculate the price of the order according to assignment specifications"""
     base_price, order_minimum_no_surcharge, venue_coords = (
         venue_information["base_price"],
@@ -24,7 +26,7 @@ def calculate_price(
     # Loop over ranges to find a suitable one
     dist = calculate_distance(user_coords, venue_coords)
     for dist_range in venue_information["distance_ranges"]:
-        if dist >= dist_range["min"] and dist < dist_range["max"]:
+        if dist_range["min"] <= dist < dist_range["max"]:
             # Suitable range found, calculate values of importance
             delivery_fee = calculate_delivery_fee(
                 base_price, dist_range["a"], dist_range["b"], dist

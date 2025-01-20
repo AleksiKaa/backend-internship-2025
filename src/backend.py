@@ -1,17 +1,22 @@
-from utils import calculate_price
-
 from fastapi import FastAPI
+from fastapi.responses import JSONResponse
 import aiohttp
+
+from utils import calculate_price
 
 app = FastAPI()
 
 
-@app.get("/api/v1/delivery-order-price")
+@app.get("/api/v1/delivery-order-price", status_code=200)
 async def get(venue_slug: str, cart_value: int, user_lat: float, user_lon: float):
     venue_info = await get_venue_information(venue_slug)
     user_coords = [user_lat, user_lon]
     order_price = calculate_price(venue_info, cart_value, user_coords)
-    return order_price
+
+    if not order_price:
+        return JSONResponse(content={"error": "Delivery not possible"}, status_code=400)
+
+    return JSONResponse(content=order_price, status_code=200)
 
 
 async def get_venue_information(venue_slug: str):
