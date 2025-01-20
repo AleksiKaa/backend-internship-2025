@@ -1,5 +1,6 @@
 from typing import Dict
 
+
 def calculate_distance(user_coords: list[float], venue_coords: list[float]) -> int:
     """Calculate the straight line distance for two pairs of points"""
     x1, y1 = user_coords
@@ -41,5 +42,5 @@ def calculate_price(
             }
             return order_info
 
-    # Handle case where no suitable range was found
+    # No suitable delivery option, return empty dict
     return {}
